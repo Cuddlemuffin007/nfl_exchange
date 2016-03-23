@@ -22,6 +22,5 @@ class QuestionDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['quesion_answers'] = Answer.objects.filter(question=self.kwargs.get('pk'))
-        print(context)
+        context['question_answers'] = Answer.objects.filter(question=self.kwargs.get('pk'))
         return context

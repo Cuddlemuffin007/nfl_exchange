@@ -12,4 +12,15 @@
 </tr>
 </table>
 
+<table>
+  <th>Answers</th>
+  <th>Score</th>
+  {% for answer in question_answers.all %}
+    <tr>
+      <td>{{ answer.body }}</td>
+      <td>{{ answer.score }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
 {% endblock %}
