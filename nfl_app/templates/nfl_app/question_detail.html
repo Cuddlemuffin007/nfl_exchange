@@ -2,14 +2,14 @@
 {% block title%}Question{% endblock %}
 
 {% block content %}
-
-    <a class="waves-effect waves-light btn-large" href="{% url 'sub_post' object.pk %}">Post Here!</a>
-
-
 <table class="highlight">
-<th><td>Title: {{ object.title }}</td></th>
+<th>Title: {{ object.title }}</th>
 <tr><td>Body: {{ object.body }}</td></tr>
-<tr><td>{{ object.tags }}</td></tr>
+<tr>
+{% for tag in object.tags.all %}
+<td>{{ tag }}</td>
+{% endfor %}
+</tr>
 </table>
 
 {% endblock %}
