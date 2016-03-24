@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, ListView, DetailView
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ObjectDoesNotExist
 from nfl_app.models import UserProfile, Question, Answer, Tag
 
 
@@ -32,7 +33,17 @@ class QuestionCreateView(CreateView):
 
     def form_valid(self, form):
         question_object = form.save(commit=False)
+        tags = self.request.POST.get('tags').split(',')
         question_object.poster = self.request.user
+        question_object.save()
+        if any(tags):
+            for tag in tags:
+                try:
+                    new_tag = Tag.objects.get(name=tag)
+                except ObjectDoesNotExist:
+                    new_tag = Tag.objects.create(name=tag)
+                question_object.tags.add(new_tag)
+                question_object.save()
         return super().form_valid(form)
 
     def get_success_url(self):
