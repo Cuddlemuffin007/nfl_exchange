@@ -4,6 +4,11 @@ from django.views.generic import CreateView, ListView, DetailView
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
 from nfl_app.models import UserProfile, Question, Answer, Tag
+from rest_framework import generics
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer
+
 
 
 class SignupCreateView(CreateView):
