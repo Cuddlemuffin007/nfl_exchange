@@ -3,7 +3,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, ListView, DetailView
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-from nfl_app.models import UserProfile, Question, Answer, Tag
+from django.http import HttpResponseRedirect
+from nfl_app.models import UserProfile, Question, Answer, Tag, Vote
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
@@ -75,3 +76,20 @@ class UserProfileDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['user_questions'] = Question.objects.filter(poster=context['object'].user)
         return context
+
+
+def upvote_create_view(request):
+    voter = request.user
+    answer = request.kwargs.get('pk')
+    value = 1
+    Vote.objects.create(voter=voter, answer=answer, value=value)
+    return HttpResponseRedirect('/')
+
+
+def downvote_create_view(request):
+    voter = request.user
+    answer = request.kwargs.get('pk')
+    value = -1
+    Vote.objects.create(voter=voter, answer=answer, value=value)
+    return HttpResponseRedirect('/')
+

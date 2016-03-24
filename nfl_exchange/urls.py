@@ -14,4 +14,6 @@ urlpatterns = [
     url(r'^question/create/$', views.QuestionCreateView.as_view(), name='question_create_view'),
     url(r'^question/(?P<pk>\d+)/post_answer/$', views.AnswerCreateView.as_view(), name='answer_create_view'),
     url(r'^user/(?P<pk>\d+)/$', views.UserProfileDetailView.as_view(), name='user_profile_detail_view'),
+    url(r'^answer/(?P<pk>\d+)/upvote/$', views.upvote_create_view, name='upvote_create_view'),
+    url(r'^answer/(?P<pk>\d+)/downvote/$', views.downvote_create_view, name='downvote_create_view'),
 ]
