@@ -60,3 +60,6 @@ class AnswerCreateView(CreateView):
         answer_object.question = Question.objects.get(pk=self.kwargs.get('pk'))
         return super().form_valid(form)
 
+    def get_success_url(self):
+        return reverse('question_detail_view', kwargs={'pk': self.kwargs.get('pk')})
+

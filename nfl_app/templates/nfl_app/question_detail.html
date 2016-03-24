@@ -22,5 +22,5 @@
     </tr>
   {% endfor %}
 </table>
-<a href="{% url 'answer_create_view' %}">Answer Here!</a>
+<a href="{% url 'answer_create_view' object.pk %}">Answer Here!</a>
 {% endblock %}
