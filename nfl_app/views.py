@@ -35,7 +35,7 @@ class QuestionCreateView(CreateView):
         question_object.poster = self.request.user
         return super().form_valid(form)
 
-    def get_successs_url(self):
+    def get_success_url(self):
         return reverse('question_detail_view', kwargs={'pk': self.object.pk})
 
 
