@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title%}Your Answer{% endblock %}
+
+{% block content %}
+ <h3>{{ request.user }}, Answer the Question!</h3>
+<form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn waves-effect waves-light" type="submit" name="action">Answer
+    <i class="material-icons right">send</i>
+    </button>
+</form>
+{% endblock %}
