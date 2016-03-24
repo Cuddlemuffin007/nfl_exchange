@@ -14,5 +14,6 @@ select {
 }
 
 .btn {
-  color: blue
+  background-color: blue;
+  color: white
 }
