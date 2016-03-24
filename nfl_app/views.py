@@ -3,10 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, ListView, DetailView
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ObjectDoesNotExist
-<<<<<<< 5479d1da3e59d4abcd04c863043a86005ccfd148
 from django.http import HttpResponseRedirect
-=======
->>>>>>> Began apis
 from nfl_app.models import UserProfile, Question, Answer, Tag, Vote
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
