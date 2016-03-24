@@ -7,8 +7,7 @@ from nfl_app.models import UserProfile, Question, Answer, Tag
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer
-
+# from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer
 
 
 class SignupCreateView(CreateView):
