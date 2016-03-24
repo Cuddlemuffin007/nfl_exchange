@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title%}Your Profile{% endblock %}
+
+{% block content %}
+<h1>Your Current Score</h1>
+<div>{{ object.score }}</div>
+<p>Improve your score by asking more questions!</p>
+
+<h5>Questions you have asked.</h5>
+{% for question in user_questions %}
+  <a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a>
+{% endfor %}
+
+{% endblock %}
