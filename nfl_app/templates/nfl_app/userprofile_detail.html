@@ -2,11 +2,10 @@
 {% block title%}Your Profile{% endblock %}
 
 {% block content %}
-<h1>Your Current Score</h1>
-<div>{{ object.score }}</div>
+<h1>Your Current Score: {{ object.score }}</h1>
 <p>Improve your score by asking more questions!</p>
 
-<h5>Questions you have asked.</h5>
+<h5>Questions you have asked:</h5>
 {% for question in user_questions %}
   <div><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></div>
 {% endfor %}

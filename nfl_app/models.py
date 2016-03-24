@@ -45,3 +45,12 @@ def create_user_profile(sender, **kwargs):
         UserProfile.objects.create(user=user_instance)
         Token.objects.create(user=user_instance)
 
+
+@receiver(post_save, sender=Question)
+def increment_user_score(sender, **kwargs):
+    question_instance = kwargs.get('instance')
+    if kwargs.get('created'):
+        question_instance.poster.userprofile.score += 5
+        question_instance.poster.userprofile.save()
+
+
