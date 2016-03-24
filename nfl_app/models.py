@@ -32,6 +32,10 @@ class Answer(models.Model):
     score = models.IntegerField(default=0)
     poster = models.ForeignKey('auth.User')
     question = models.ForeignKey(Question)
+    posted = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-posted', '-score']
 
 
 @receiver(post_save, sender='auth.User')

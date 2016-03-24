@@ -50,4 +50,13 @@ class QuestionCreateView(CreateView):
         return reverse('question_detail_view', kwargs={'pk': self.object.pk})
 
 
+class AnswerCreateView(CreateView):
+    model = Answer
+    fields = ('body',)
+
+    def form_valid(self, form):
+        answer_object = form.save(commit=False)
+        answer_object.poster = self.request.user
+        answer_object.question = Question.objects.get(pk=self.kwargs.get('pk'))
+        return super().form_valid(form)
 
