@@ -8,7 +8,7 @@ from nfl_app.models import UserProfile, Question, Answer, Tag, Vote
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
-# from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer
+from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer
 
 
 class SignupCreateView(CreateView):
@@ -93,3 +93,91 @@ def downvote_create_view(request):
     Vote.objects.create(voter=voter, answer=answer, value=value)
     return HttpResponseRedirect('/')
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class QuestionListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class QuestionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
+
+
+class AnswerListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+
+class AnswerRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+
+class TagListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+
+class TagRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+
+
+class VoteListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+
+
+class VoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
