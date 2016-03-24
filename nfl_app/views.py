@@ -24,3 +24,19 @@ class QuestionDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['question_answers'] = Answer.objects.filter(question=self.kwargs.get('pk'))
         return context
+
+
+class QuestionCreateView(CreateView):
+    model = Question
+    fields = ('title', 'body')
+
+    def form_valid(self, form):
+        question_object = form.save(commit=False)
+        question_object.poster = self.request.user
+        return super().form_valid(form)
+
+    def get_successs_url(self):
+        return reverse('question_detail_view', kwargs={'pk': self.object.pk})
+
+
+
