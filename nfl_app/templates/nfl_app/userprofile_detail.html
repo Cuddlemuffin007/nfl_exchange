@@ -8,7 +8,7 @@
 
 <h5>Questions you have asked.</h5>
 {% for question in user_questions %}
-  <a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a>
+  <div><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></div>
 {% endfor %}
 
 {% endblock %}
