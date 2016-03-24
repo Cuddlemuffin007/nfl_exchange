@@ -38,6 +38,12 @@ class Answer(models.Model):
         ordering = ['-posted', '-score']
 
 
+class Vote(models.Model):
+    voter = models.ForeignKey('auth.User')
+    answer = models.ForeignKey(Answer)
+    value = models.IntegerField(default=0)
+
+
 @receiver(post_save, sender='auth.User')
 def create_user_profile(sender, **kwargs):
     user_instance = kwargs.get('instance')
