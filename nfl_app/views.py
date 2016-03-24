@@ -63,3 +63,11 @@ class AnswerCreateView(CreateView):
     def get_success_url(self):
         return reverse('question_detail_view', kwargs={'pk': self.kwargs.get('pk')})
 
+
+class UserProfileDetailView(DetailView):
+    model = UserProfile
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_questions'] = Question.objects.filter(poster=context['object'].user)
+        return context
