@@ -78,19 +78,21 @@ class UserProfileDetailView(DetailView):
         return context
 
 
-def upvote_create_view(request):
+def upvote_create_view(request, pk):
     voter = request.user
-    answer = request.kwargs.get('pk')
+    answer = Answer.objects.get(pk=pk)
     value = 1
-    Vote.objects.create(voter=voter, answer=answer, value=value)
+    if answer not in Answer.objects.filter(poster=voter) and not Vote.objects.filter(voter=voter, answer=answer):
+        Vote.objects.create(voter=voter, answer=answer, value=value)
     return HttpResponseRedirect('/')
 
 
-def downvote_create_view(request):
+def downvote_create_view(request, pk):
     voter = request.user
-    answer = request.kwargs.get('pk')
+    answer = Answer.objects.get(pk=pk)
     value = -1
-    Vote.objects.create(voter=voter, answer=answer, value=value)
+    if answer not in Answer.objects.filter(poster=voter) and not Vote.objects.filter(voter=voter, answer=answer):
+        Vote.objects.create(voter=voter, answer=answer, value=value)
     return HttpResponseRedirect('/')
 
 
