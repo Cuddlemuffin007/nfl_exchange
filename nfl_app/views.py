@@ -54,6 +54,7 @@ class QuestionCreateView(CreateView):
     def get_success_url(self):
         return reverse('question_detail_view', kwargs={'pk': self.object.pk})
 
+
 class TagDetailView(DetailView):
     model = Tag
 
