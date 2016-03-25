@@ -54,6 +54,15 @@ class QuestionCreateView(CreateView):
     def get_success_url(self):
         return reverse('question_detail_view', kwargs={'pk': self.object.pk})
 
+class TagDetailView(DetailView):
+    model = Tag
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tag = context['object']
+        context['question_list'] = [question for question in Question.objects.all() if tag in question.tags.all()]
+        return context
+
 
 class AnswerCreateView(CreateView):
     model = Answer

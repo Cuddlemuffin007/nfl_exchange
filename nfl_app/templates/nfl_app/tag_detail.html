@@ -2,5 +2,8 @@
 {% block title%}Tags{% endblock %}
 
 {% block content %}
-{{ object }}
+<br><br>
+{% for question in question_list %}
+<div><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></div>
+{% endfor %}
 {% endblock %}
