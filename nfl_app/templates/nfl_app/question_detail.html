@@ -12,17 +12,21 @@
 </tr>
 </table>
 
-<table>
-  <th>Answers</th>
-  <th>Score</th>
+<table class="highlight">
   {% for answer in question_answers.all %}
-    <tr>
-      <td><div class="upvote"></div><a href="{% url 'upvote_create_view' answer.pk %}">Upvote</a>
-        <div class="downvote"><a href="{% url 'downvote_create_view' answer.pk %}">Downvote</a></div></td>
-      <td>{{ answer.body }}</td>
-      <td>{{ answer.score }}</td>
-    </tr>
+    <tr><th>Answer</th>
+    <th>Score</th></tr>
+    <tr><td>{{ answer.body }}</td>
+        <td>{{ answer.score }}</td></tr>
+  <button class="btn waves-effect waves-light" type="submit" name="action">
+    <a href="{% url 'upvote_create_view' answer.pk %}">Upvote</a>
+    <i class="material-icons right">thumb_up</i></button>
+    <button class="btn waves-effect waves-light" type="submit" name="action">
+      <a href="{% url 'downvote_create_view' answer.pk %}">Downvote</a>
+      <i class="material-icons right">thumb_down</i></button>
   {% endfor %}
 </table>
-<a href="{% url 'answer_create_view' object.pk %}">Answer Here!</a>
+<button class="btn waves-effect waves-light" type="submit" name="action">
+  <a href="{% url 'answer_create_view' object.pk %}">Answer Here!</a>
+  <i class="material-icons right">send</i></button>
 {% endblock %}
