@@ -1,6 +1,13 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from nfl_app.models import Question, Answer, Tag, Vote
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
 
 
 class QuestionSerializer(serializers.ModelSerializer):

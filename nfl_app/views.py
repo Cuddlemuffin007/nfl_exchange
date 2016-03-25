@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect
 from nfl_app.models import UserProfile, Question, Answer, Tag, Vote
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
+from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer, UserSerializer
 
 
 class SignupCreateView(CreateView):
@@ -114,9 +114,23 @@ def downvote_create_view(request, pk):
     return HttpResponseRedirect(reverse('question_detail_view', kwargs={'pk': answer.question.pk}))
 
 
+# Begin API endpoints
+class UserCreateAPIView(generics.CreateAPIView):
+    serializer_class = UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        request.data['poster'] = request.user.pk
+        return super().create(request, *args, **kwargs)
+
+
 class QuestionListCreateAPIView(generics.ListCreateAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def create(self, request, *args, **kwargs):
+        request.data['poster'] = request.user.pk
+        return super().create(request, *args, **kwargs)
 
 
 class QuestionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -127,6 +141,11 @@ class QuestionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView
 class AnswerListCreateAPIView(generics.ListCreateAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def create(self, request, *args, **kwargs):
+        request.data['poster'] = request.user.pk
+        return super().create(request, *args, **kwargs)
 
 
 class AnswerRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -137,6 +156,7 @@ class AnswerRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 class TagListCreateAPIView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
 class TagRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
@@ -147,6 +167,11 @@ class TagRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
 class VoteListCreateAPIView(generics.ListCreateAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def create(self, request, *args, **kwargs):
+        request.data['voter'] = request.user.pk
+        return super().create(request, *args, **kwargs)
 
 
 class VoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
