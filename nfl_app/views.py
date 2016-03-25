@@ -55,10 +55,6 @@ class QuestionCreateView(CreateView):
         return reverse('question_detail_view', kwargs={'pk': self.object.pk})
 
 
-class TagDetailView(DetailView):
-    model = Tag
-
-
 class AnswerCreateView(CreateView):
     model = Answer
     fields = ('body',)
@@ -175,6 +171,9 @@ class VoteListCreateAPIView(generics.ListCreateAPIView):
 
     def create(self, request, *args, **kwargs):
         request.data['voter'] = request.user.pk
+        if request.data['value'] == -1:
+            request.user.userprofile.score -= 1
+            request.user.userprofile.save()
         return super().create(request, *args, **kwargs)
 
 
