@@ -1,6 +1,7 @@
 from django.conf.urls import url
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 from nfl_app import views
 
 
@@ -11,11 +12,12 @@ urlpatterns = [
     url(r'^logout', auth_views.logout_then_login, name='logout'),
     url(r'^$', views.QuestionListView.as_view(), name='question_list_view'),
     url(r'^question/(?P<pk>\d+)/$', views.QuestionDetailView.as_view(), name='question_detail_view'),
-    url(r'^question/create/$', views.QuestionCreateView.as_view(), name='question_create_view'),
-    url(r'^question/(?P<pk>\d+)/post_answer/$', views.AnswerCreateView.as_view(), name='answer_create_view'),
+    url(r'^question/create/$', login_required(views.QuestionCreateView.as_view()), name='question_create_view'),
+    url(r'^question/(?P<pk>\d+)/post_answer/$', login_required(views.AnswerCreateView.as_view()), name='answer_create_view'),
     url(r'^user/(?P<pk>\d+)/$', views.UserProfileDetailView.as_view(), name='user_profile_detail_view'),
-    url(r'^answer/(?P<pk>\d+)/upvote/$', views.upvote_create_view, name='upvote_create_view'),
-    url(r'^answer/(?P<pk>\d+)/downvote/$', views.downvote_create_view, name='downvote_create_view'),
+    url(r'^answer/(?P<pk>\d+)/upvote/$', login_required(views.upvote_create_view), name='upvote_create_view'),
+    url(r'^answer/(?P<pk>\d+)/downvote/$', login_required(views.downvote_create_view), name='downvote_create_view'),
+    # Begin API URLs
     url(r'^api/questions/$', views.QuestionListCreateAPIView.as_view(), name='question_list_create_view'),
     url(r'^api/answers/$', views.AnswerListCreateAPIView.as_view(), name='answer_list_create_view'),
     url(r'^api/tags/$', views.TagListCreateAPIView.as_view(), name='tag_list_create_view'),
