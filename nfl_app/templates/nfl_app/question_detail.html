@@ -5,29 +5,32 @@
 <table class="highlight">
 <th>Title: {{ object.title }}</th>
 <tr><td>Body: {{ object.body }}</td></tr>
-<tr><th>Tags: </th>
+<tr><th>Tags:
 {% for tag in object.tags.all %}
-<th>{{ tag }}</th>
+<span><a href="{% url 'tag_detail_view' tag.id  %}">{{ tag }}</a></span>
 {% endfor %}
+</th>
 </tr>
 </table>
 
+<a href="{% url 'answer_create_view' object.pk %}">
+<button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Answer Here!
+  <i class="material-icons right">send</i></button></a>
+
 <table class="highlight">
+  <th>Answers</th>
   {% for answer in question_answers.all %}
-    <tr><th>Answer</th>
-    <th>Score</th></tr>
-    <tr><td>{{ answer.body }}</td>
-        <td>{{ answer.score }}</td></tr>
+    <tr><td>{{ answer.body }}</td></tr>
+    <tr><td>Posted on {{ answer.posted }} by {{ answer.poster }}</td><td>Score: {{ answer.score }}</td></tr>
   <tr><td><a href="{% url 'upvote_create_view' answer.pk %}">
     <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Upvote
     <i class="material-icons right">thumb_up</i></button></a>
     <a href="{% url 'downvote_create_view' answer.pk %}">
     <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Downvote
       <i class="material-icons right">thumb_down</i></button></a></td></tr>
+  {% empty %}
+    <h3>Be the first to answer this question!</h3>
   {% endfor %}
 </table>
 <br><br>
-<a href="{% url 'answer_create_view' object.pk %}">
-<button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Answer Here!
-  <i class="material-icons right">send</i></button></a>
 {% endblock %}

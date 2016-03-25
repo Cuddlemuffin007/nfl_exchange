@@ -12,16 +12,17 @@
 <div class="container grey lighten-3">
 <nav>
     <div class="nav-wrapper indigo darken-4">
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
+      <a href="{% url 'question_list_view'  %}" class="brand-logo">NFL Exchange</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
         {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Logout</a></li>
         <li><a href="{% url 'user_profile_detail_view' user.id %}">Your Profile</a></li>
         <li><a href="{% url 'question_list_view' %}">All Questions</a></li>
         <li><a href="{% url 'question_create_view' %}">Ask a Question</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
         {% else %}
+        <li><a href="{% url 'question_list_view' %}">Home</a></li>
         <li><a href="{% url 'signup' %}">Register</a></li>
         <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'question_list_view' %}">Home</a></li>
         {% endif %}
       </ul>
     </div>

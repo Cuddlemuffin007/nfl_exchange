@@ -2,6 +2,22 @@
 {% block title%}Home{% endblock %}
 
 {% block content %}
+  <div class="row">
+    <div class="col s12">
+      <div class="card indigo darken-4">
+        <div class="card-content white-text">
+          <span class="card-title">Welcome!</span>
+          <p>Thanks for checking out NFL Exchange. This is your one stop shop
+            for football questions and answers.</p>
+          <p>Browse all you want or login below to contribute!</p>
+        </div>
+        <div class="card-action">
+          <a href="{% url 'login' %}">Login</a>
+          <a href="{% url 'signup' %}">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
         <br>
         <table class="highlight">
         <th>Question Title</th>
@@ -11,6 +27,9 @@
           {% for tag in question.tags.all %}
         <td><a href="{% url 'tag_detail_view' tag.id %}">{{ tag }}</a></td>
         {% endfor %}</tr>
+    {% empty %}
+          <h3>Looks like there are no questions yet.<h3>
+          <h5>Why don't you ask something?</h5>
     {% endfor %}
         </table>
         <br>

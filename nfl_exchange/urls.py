@@ -24,9 +24,9 @@ urlpatterns = [
     url(r'^api/answers/$', views.AnswerListCreateAPIView.as_view(), name='answer_list_create_view'),
     url(r'^api/tags/$', views.TagListCreateAPIView.as_view(), name='tag_list_create_view'),
     url(r'^api/votes/$', views.VoteListCreateAPIView.as_view(), name='vote_list_create_view'),
-    # UpdateDestroy API Views
-    url(r'^api/questions/(?P<pk>\d+)/$', views.QuestionRetrieveUpdateDestroyAPIView.as_view(), name='question_retrieve_update_destroy_view'),
-    url(r'^api/answers/(?P<pk>\d+)/$', views.AnswerRetrieveUpdateDestroyAPIView.as_view(), name='answer_retrieve_update_destroy_view'),
-    url(r'^api/posts/(?P<pk>\d+)/$', views.TagRetrieveUpdateDestroyAPIView.as_view(), name='tag_retrieve_update_destroy_view'),
-    url(r'^api/votes/(?P<pk>\d+)/$', views.VoteRetrieveUpdateDestroyAPIView.as_view(), name='vote_retrieve_update_destroy_view')
+    # Retrieve API Views
+    url(r'^api/questions/(?P<pk>\d+)/$', views.QuestionRetrieveAPIView.as_view(), name='question_retrieve_view'),
+    url(r'^api/answers/(?P<pk>\d+)/$', views.AnswerRetrieveAPIView.as_view(), name='answer_retrieve_view'),
+    url(r'^api/posts/(?P<pk>\d+)/$', views.TagRetrieveAPIView.as_view(), name='tag_retrieve_view'),
+    url(r'^api/votes/(?P<pk>\d+)/$', views.VoteRetrieveAPIView.as_view(), name='vote_retrieve_view')
 ]

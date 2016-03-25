@@ -7,7 +7,11 @@
 
 <h5>Questions you have asked:</h5>
 {% for question in user_questions %}
-  <div><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></div>
+<div class='row'>
+  <div class='col s6'><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></div>
+  <div class='col s6'>{{ question.posted }}</div>
+</div>
+
 {% endfor %}
 
 {% endblock %}

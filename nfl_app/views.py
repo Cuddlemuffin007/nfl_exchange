@@ -6,8 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from nfl_app.models import UserProfile, Question, Answer, Tag, Vote
 from rest_framework import generics
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import AllowAny, IsAuthenticatedOrReadOnly
 from nfl_app.serializers import QuestionSerializer, AnswerSerializer, TagSerializer, VoteSerializer, UserSerializer
 
 
@@ -127,10 +126,7 @@ def downvote_create_view(request, pk):
 # Begin API endpoints
 class UserCreateAPIView(generics.CreateAPIView):
     serializer_class = UserSerializer
-
-    def create(self, request, *args, **kwargs):
-        request.data['poster'] = request.user.pk
-        return super().create(request, *args, **kwargs)
+    permission_classes = (AllowAny,)
 
 
 class QuestionListCreateAPIView(generics.ListCreateAPIView):
@@ -143,7 +139,7 @@ class QuestionListCreateAPIView(generics.ListCreateAPIView):
         return super().create(request, *args, **kwargs)
 
 
-class QuestionRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+class QuestionRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
 
@@ -158,7 +154,7 @@ class AnswerListCreateAPIView(generics.ListCreateAPIView):
         return super().create(request, *args, **kwargs)
 
 
-class AnswerRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+class AnswerRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
@@ -169,7 +165,7 @@ class TagListCreateAPIView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
 
-class TagRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+class TagRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
 
@@ -187,6 +183,6 @@ class VoteListCreateAPIView(generics.ListCreateAPIView):
         return super().create(request, *args, **kwargs)
 
 
-class VoteRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+class VoteRetrieveAPIView(generics.RetrieveAPIView):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
