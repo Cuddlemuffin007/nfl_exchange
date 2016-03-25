@@ -16,4 +16,12 @@ urlpatterns = [
     url(r'^user/(?P<pk>\d+)/$', views.UserProfileDetailView.as_view(), name='user_profile_detail_view'),
     url(r'^answer/(?P<pk>\d+)/upvote/$', views.upvote_create_view, name='upvote_create_view'),
     url(r'^answer/(?P<pk>\d+)/downvote/$', views.downvote_create_view, name='downvote_create_view'),
+    url(r'^api/questions/$', views.QuestionListCreateAPIView.as_view(), name='question_list_create_view'),
+    url(r'^api/answers/$', views.AnswerListCreateAPIView.as_view(), name='answer_list_create_view'),
+    url(r'^api/tags/$', views.TagListCreateAPIView.as_view(), name='tag_list_create_view'),
+    url(r'^api/votes/$', views.VoteListCreateAPIView.as_view(), name='vote_list_create_view'),
+    url(r'^api/questions/(?P<pk>\d+)/$', views.QuestionRetrieveUpdateDestroyAPIView.as_view(), name='question_retrieve_update_destroy_view'),
+    url(r'^api/answers/(?P<pk>\d+)/$', views.AnswerRetrieveUpdateDestroyAPIView.as_view(), name='answer_retrieve_update_destroy_view'),
+    url(r'^api/posts/(?P<pk>\d+)/$', views.TagRetrieveUpdateDestroyAPIView.as_view(), name='tag_retrieve_update_destroy_view'),
+    url(r'^api/votes/(?P<pk>\d+)/$', views.VoteRetrieveUpdateDestroyAPIView.as_view(), name='vote_retrieve_update_destroy_view')
 ]
