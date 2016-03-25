@@ -17,6 +17,8 @@
   <th>Score</th>
   {% for answer in question_answers.all %}
     <tr>
+      <td><div class="upvote"></div><a href="{% url 'upvote_create_view' answer.pk %}">Upvote</a>
+        <div class="downvote"><a href="{% url 'downvote_create_view' answer.pk %}">Downvote</a></div></td>
       <td>{{ answer.body }}</td>
       <td>{{ answer.score }}</td>
     </tr>
