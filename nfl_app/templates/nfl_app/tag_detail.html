@@ -3,7 +3,12 @@
 
 {% block content %}
 <br><br>
+<table class="highlight">
+  <th>Questions with {{ object }} as a Tag</th>
 {% for question in question_list %}
-<div><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></div>
+<tr>
+<td><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></td>
+</tr>
 {% endfor %}
+</table>
 {% endblock %}
