@@ -77,10 +77,20 @@ WSGI_APPLICATION = 'nfl_exchange.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'nfl_exchange_db',
+        'USER': 'nfl_exchange',
+        'PASSWORD': 'safepass',
+        'HOST': 'nfl-exchange-instance.cknskvp6aquc.us-east-1.rds.amazonaws.com',
     }
 }
 
