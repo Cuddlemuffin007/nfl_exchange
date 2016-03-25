@@ -7,7 +7,7 @@
 <tr><td>Body: {{ object.body }}</td></tr>
 <tr><th>Tags: </th>
 {% for tag in object.tags.all %}
-<td>{{ tag }}</td>
+<th>{{ tag }}</th>
 {% endfor %}
 </tr>
 </table>
@@ -19,15 +19,15 @@
     <tr><td>{{ answer.body }}</td>
         <td>{{ answer.score }}</td></tr>
   <tr><td><a href="{% url 'upvote_create_view' answer.pk %}">
-    <button class="btn waves-effect waves-light" type="submit" name="action">Upvote
+    <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Upvote
     <i class="material-icons right">thumb_up</i></button></a>
     <a href="{% url 'downvote_create_view' answer.pk %}">
-    <button class="btn waves-effect waves-light" type="submit" name="action">Downvote
+    <button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Downvote
       <i class="material-icons right">thumb_down</i></button></a></td></tr>
   {% endfor %}
 </table>
 <br><br>
 <a href="{% url 'answer_create_view' object.pk %}">
-<button class="btn waves-effect waves-light" type="submit" name="action">Answer Here!
+<button class="btn waves-effect waves-light indigo darken-4" type="submit" name="action">Answer Here!
   <i class="material-icons right">send</i></button></a>
 {% endblock %}

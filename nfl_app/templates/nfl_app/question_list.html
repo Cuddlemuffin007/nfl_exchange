@@ -5,8 +5,12 @@
         <br>
         <table class="highlight">
         <th>Question Title</th>
+        <th>Tags:</th>
     {% for question in object_list %}
-        <tr><td><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></td></tr>
+        <tr><td><a href="{% url 'question_detail_view' question.id %}">{{ question.title }}</a></td>
+          {% for tag in question.tags.all %}
+        <td><a href="{% url 'tag_detail_view' tag.id %}">{{ tag }}</a></td>
+        {% endfor %}</tr>
     {% endfor %}
         </table>
         <br>
