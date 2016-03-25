@@ -35,7 +35,7 @@ class Answer(models.Model):
     posted = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ['-posted', '-score']
+        ordering = ['-score', '-posted']
 
 
 class Vote(models.Model):
@@ -65,9 +65,13 @@ def assign_points(sender, **kwargs):
     vote_instance = kwargs.get('instance')
     answer = vote_instance.answer
     userprofile = answer.poster.userprofile
+    if vote_instance.value == 1:
+        userprofile.score += 10
+    elif vote_instance.value == -1:
+        userprofile.score -= 5
+    userprofile.save()
+
     answer_upvotes = Vote.objects.filter(answer=answer, value=1).count()
     answer_downvotes = Vote.objects.filter(answer=answer, value=-1).count()
-    userprofile.score = (10 * answer_upvotes) - (5 * answer_downvotes)
     answer.score = answer_upvotes - answer_downvotes
     answer.save()
-    userprofile.save()

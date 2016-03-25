@@ -82,18 +82,36 @@ def upvote_create_view(request, pk):
     voter = request.user
     answer = Answer.objects.get(pk=pk)
     value = 1
-    if answer not in Answer.objects.filter(poster=voter) and not Vote.objects.filter(voter=voter, answer=answer):
-        Vote.objects.create(voter=voter, answer=answer, value=value)
-    return HttpResponseRedirect('question_detail_view', kwargs={'pk': answer.question.pk})
+    existing_user_downvote = Vote.objects.filter(voter=voter, answer=answer, value=-1)
+
+    if answer not in Answer.objects.filter(poster=voter):
+        if existing_user_downvote:
+            downvote = Vote.objects.get(voter=voter, answer=answer, value=-1)
+            downvote.value = value
+            downvote.save()
+            voter.userprofile.score += 1
+            voter.userprofile.save()
+        elif not Vote.objects.filter(voter=voter, answer=answer):
+            Vote.objects.create(voter=voter, answer=answer, value=value)
+    return HttpResponseRedirect(reverse('question_detail_view', kwargs={'pk': answer.question.pk}))
 
 
 def downvote_create_view(request, pk):
     voter = request.user
     answer = Answer.objects.get(pk=pk)
     value = -1
-    if answer not in Answer.objects.filter(poster=voter) and not Vote.objects.filter(voter=voter, answer=answer):
-        Vote.objects.create(voter=voter, answer=answer, value=value)
-    return HttpResponseRedirect('question_detail_view', kwargs={'pk': answer.question.pk})
+    existing_user_upvote = Vote.objects.filter(voter=voter, answer=answer, value=1)
+
+    if answer not in Answer.objects.filter(poster=voter):
+        if existing_user_upvote:
+            upvote = Vote.objects.get(voter=voter, answer=answer, value=1)
+            upvote.value = value
+            upvote.save()
+        elif not Vote.objects.filter(voter=voter, answer=answer):
+            Vote.objects.create(voter=voter, answer=answer, value=value)
+        voter.userprofile.score -= 1
+        voter.userprofile.save()
+    return HttpResponseRedirect(reverse('question_detail_view', kwargs={'pk': answer.question.pk}))
 
 
 class QuestionListCreateAPIView(generics.ListCreateAPIView):
