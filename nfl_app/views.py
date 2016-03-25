@@ -77,7 +77,6 @@ class UserProfileDetailView(DetailView):
         context['user_questions'] = Question.objects.filter(poster=context['object'].user)
         return context
 
-
 def upvote_create_view(request, pk):
     voter = request.user
     answer = Answer.objects.get(pk=pk)
@@ -94,56 +93,6 @@ def downvote_create_view(request, pk):
     if answer not in Answer.objects.filter(poster=voter) and not Vote.objects.filter(voter=voter, answer=answer):
         Vote.objects.create(voter=voter, answer=answer, value=value)
     return HttpResponseRedirect('/')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 class QuestionListCreateAPIView(generics.ListCreateAPIView):
     queryset = Question.objects.all()
