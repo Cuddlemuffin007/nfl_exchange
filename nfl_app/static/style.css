@@ -13,7 +13,7 @@ select {
     border-radius: 10px;
 }
 
-.btn {
+button {
   background-color: blue;
-  color: white
+  color: white;
 }
