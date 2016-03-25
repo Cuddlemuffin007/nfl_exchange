@@ -14,7 +14,6 @@ urlpatterns = [
     url(r'^question/(?P<pk>\d+)/$', views.QuestionDetailView.as_view(), name='question_detail_view'),
     url(r'^question/create/$', login_required(views.QuestionCreateView.as_view()), name='question_create_view'),
     url(r'^question/(?P<pk>\d+)/post_answer/$', login_required(views.AnswerCreateView.as_view()), name='answer_create_view'),
-    url(r'^tag/(?P<pk>\d+)/$', views.TagDetailView.as_view(), name="tag_detail_view"),
     url(r'^user/(?P<pk>\d+)/$', views.UserProfileDetailView.as_view(), name='user_profile_detail_view'),
     url(r'^answer/(?P<pk>\d+)/upvote/$', login_required(views.upvote_create_view), name='upvote_create_view'),
     url(r'^answer/(?P<pk>\d+)/downvote/$', login_required(views.downvote_create_view), name='downvote_create_view'),
