@@ -60,3 +60,14 @@ def increment_user_score(sender, **kwargs):
         question_instance.poster.userprofile.save()
 
 
+@receiver(post_save, sender=Vote)
+def assign_points(sender, **kwargs):
+    vote_instance = kwargs.get('instance')
+    answer = vote_instance.answer
+    userprofile = answer.poster.userprofile
+    answer_upvotes = Vote.objects.filter(answer=answer, value=1).count()
+    answer_downvotes = Vote.objects.filter(answer=answer, value=-1).count()
+    userprofile.score = (10 * answer_upvotes) - (5 * answer_downvotes)
+    answer.score = answer_upvotes - answer_downvotes
+    answer.save()
+    userprofile.save()
